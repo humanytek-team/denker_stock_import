@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+      <record model="ir.ui.view" id="view_move_import_form">
+        <field name="name">view_move_import_form</field>
+        <field name="model">stock.move</field>
+        <field name="priority">20</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+           <group name="quants_grp" position="after">
+            <group name="import" string="Importacion">
+              <field name="in_date" />
+              <field name="import_no" />
+              <field name="request_no" />
+              <field name="import_status" />
+            </group>
+          </group>
+        </field>
+      </record>
+
+
+      <record model="ir.ui.view" id="view_move_tree_import_receipt_picking">
+        <field name="name">view_move_tree_import_receipt_picking</field>
+        <field name="model">stock.move</field>
+        <field name="priority">20</field>
+        <field name="inherit_id" ref="stock.view_move_tree_receipt_picking"/>
+        <field name="arch" type="xml">
+           <field name="product_uom" position="after">
+              <field name="in_date" />
+              <field name="import_no" />
+              <field name="request_no" />
+              <field name="import_status" />
+          </field>
+        </field>
+      </record>
+
+       <record id="view_move_import_search" model="ir.ui.view">
+            <field name="name">view_move_import_search</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+              <field name="product_id" position="after">
+                <field name="in_date" />
+                <field name="import_no" />
+                <field name="request_no" />
+                <field name="import_status" />
+              </field>
+
+              <xpath expr="//group[1]" position="inside">
+                <filter string="Fecha arribo" name="by_in_date" domain="[]" context="{'group_by':'in_date'}"/>
+                <filter string="No. Importacion" name="by_import_no" domain="[]" context="{'group_by':'import_no'}"/>
+                <filter string="No. Pedimento" name="by_request_no" domain="[]" context="{'group_by':'request_no'}"/>
+                <filter string="Status Importacion" name="by_import_status" domain="[]" context="{'group_by':'import_status'}"/>
+              </xpath>
+
+            </field>
+        </record> 
+
+
+
+<!--        <record id="view_purchase_order_filter" model="ir.ui.view">
+            <field name="name">request.quotation.select</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order">
+                    <field name="name" string="Reference"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="product_id"/>
+                    <field name="create_uid"/>
+                    <filter name="draft" string="Quotations" domain="[('state','in',('draft','sent','to approve'))]"/>
+                    <filter name="approved" string="Purchase Orders" domain="[('state','in',('purchase','done'))]"/>
+                    <filter name="to_approve" string="To Approve" domain="[('state', '=', 'to approve')]"/>
+                    <separator/>
+                    <filter name="not_invoiced" string="Waiting Bills" domain="[('invoice_status','=', 'to invoice')]" help="Purchase orders that include lines not invoiced."/>
+                    <filter name="invoiced" string="Bills Received" domain="[('invoice_status','=', 'invoiced')]" help="Purchase orders that have been invoiced."/>
+                    <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction','=',True)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Vendor" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Order Date" domain="[]" context="{'group_by':'date_order'}"/>
+                        <filter string="Expected Date" domain="[]" context="{'group_by':'date_planned'}"/>
+                    </group>
+                </search>
+            </field>
+        </record> -->
+
+
+    </data>
+</openerp>
